@@ -49,15 +49,14 @@ pipeline {
         
 		stage('Service Start') {
 	    steps {
-        echo "starting Service......"
         dir('code') {
           echo "starting Service......"       
 					script {
 						try {
-							sh "stopService.sh"
+							sh "../stopService.sh"
 							sh "java -jar dubbo-provider/target/dubbo-provider.jar >/dev/null &"
 						} catch (exc) {
-							echo 'Code Package failed'
+							echo 'Service Start Failed'
 						}
         }
 	    }
