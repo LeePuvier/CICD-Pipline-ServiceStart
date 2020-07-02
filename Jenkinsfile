@@ -38,7 +38,7 @@ pipeline {
 					script {
 						try {
 							sh "cd dubbo-provider/"
-							sh "mvn package"
+							sh "mvn package -Dmaven.test.skip=true"
 						} catch (exc) {
 							echo 'Code Package failed'
 						}
@@ -55,7 +55,7 @@ pipeline {
 					script {
 						try {
 							sh "ls"
-							sh "java -jar /dubbo-provider/target/dubbo-provider.jar"
+							sh "java -jar dubbo-provider/target/dubbo-provider.jar"
 						} catch (exc) {
 							echo 'Code Package failed'
 						}
