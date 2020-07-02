@@ -22,6 +22,7 @@ pipeline {
 					echo "starting Cleaning......"       
 					script {
 						try {
+							sh "cd dubbo-provider"
 							sh "mvn clean"
 						} catch (exc) {
 							echo 'Code Clean failed'
@@ -37,6 +38,7 @@ pipeline {
 					echo "starting Package......"       
 					script {
 						try {
+							sh "cd dubbo-provider"
 							sh "mvn package"
 						} catch (exc) {
 							echo 'Code Package failed'
