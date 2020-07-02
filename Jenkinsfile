@@ -54,8 +54,8 @@ pipeline {
           echo "starting Service......"       
 					script {
 						try {
-							sh "ls"
-							sh "java -jar dubbo-provider/target/dubbo-provider.jar"
+							sh "stopService.sh"
+							sh "java -jar dubbo-provider/target/dubbo-provider.jar >/dev/null &"
 						} catch (exc) {
 							echo 'Code Package failed'
 						}
