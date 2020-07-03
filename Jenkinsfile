@@ -55,7 +55,7 @@ pipeline {
 						try {
 							sh "chmod +x -R ../stopService.sh"
 							//sh "../stopService.sh ${serviceJar}"
-							sh "java -jar dubbo-provider/target/dubbo-provider.jar >/dev/null &"
+							sh "java -jar ${serviceStartCommand}"
 						} catch (exc) {
 							echo 'Service Start Failed'
 						}
