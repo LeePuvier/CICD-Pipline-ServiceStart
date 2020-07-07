@@ -55,7 +55,7 @@ pipeline {
 						try {
 							sh "chmod +x -R ../stopService.sh"
 							//sh "../stopService.sh ${serviceJar}"
-							sh "java -jar ${serviceStartCommand}"
+							sh "nohup java -jar ${serviceStartCommand} "
 						} catch (exc) {
 							echo 'Service Start Failed'
 						}
