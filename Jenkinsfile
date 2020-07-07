@@ -50,15 +50,20 @@ pipeline {
 		stage('Service Start') {
 	    steps {
         dir('code') {
-          echo "starting Service......"       
-					script {
-						try {
-							sh "chmod +x -R ../stopService.sh"
+          echo "starting Service......"
+          
+          withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+          		sh "nohup java -jar ${serviceStartCommand}"
+          }
+                   
+					//script {
+						//try {
+							//sh "chmod +x -R ../stopService.sh"
 							//sh "../stopService.sh ${serviceJar}"
-							sh "nohup java -jar ${serviceStartCommand} &"
-						} catch (exc) {
-							echo 'Service Start Failed'
-						}
+							//sh "nohup java -jar ${serviceStartCommand} &"
+						//} catch (exc) {
+							//echo 'Service Start Failed'
+						//}
         }
 	    }
 	  }
