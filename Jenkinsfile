@@ -7,14 +7,15 @@ pipeline {
   	}
 
     stages {
-      stage('Check Out Code') {
+        
+        stage('Check Out Code') {
 				steps {
 					dir('code') {
 						echo "starting APIScript......"
 						git([url: 'git@github.com:LeePuvier/Java-Dubbo-ZookeeperSpring-Mybatis.git', branch: env.CaseBranch, credentialsId: '0f583688-7da2-4abd-a5cd-3b40fa1a73a6'])
 					}
 				}
-      }
+        }
       
 		stage('Code Clean') {
 			steps {
@@ -29,7 +30,7 @@ pipeline {
 					}
 				}
 			}
-	   }
+	    }
 	    
 		stage('Code Package') {
 			steps {
@@ -48,28 +49,25 @@ pipeline {
 	   }
         
 		stage('Service Start') {
-	    steps {
-        dir('code') {
-          echo "starting Service......"
-          
-
-                   
-					script {
-						try {
-							 sh "chmod +x -R ../stopService.sh"
-							 sh "../stopService.sh ${serviceJar}"
-						} catch (exc) {
-							 echo 'Service Start Failed'
-						}
-          }
-         
-         
-          withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
-          		sh "nohup java -jar ${serviceStartCommand}"
-          }
+    	    steps {
+                dir('code') {
+                    echo "starting Service......"
+                    script {
+                        try {
+                            sh "chmod +x -R ../stopService.sh"
+                            //sh "../stopService.sh ${serviceJar}"
+                            
+                        } catch (exc) {
+                            echo 'Service Start Failed'
+                            
+                        }
+                    }
+             
+                    withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
+                        sh "nohup java -jar ${serviceStartCommand}"
+                    }
+	            }
+	        }
 	    }
-	  }
-	  
-		}
 	}        
 }
